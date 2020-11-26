@@ -69,6 +69,24 @@ jQuery( function ( $ ) {
 			return false;
 		}
 
+		var itemData = {};
+
+		var itemDataRaw = $variation_form.find( 'input[name^=itemdata]' );
+
+		if (itemDataRaw.length) {
+			itemDataRaw.each( function () {
+
+				var $this = $( this ),
+					dataName = $this.attr( 'name' ),
+					dataValue = $this.val(),
+					index;
+
+				itemData[dataName] = dataValue;
+
+			} );
+		}
+
+
 		// AJAX add to cart request.
 		var $thisbutton = $( this );
 
@@ -82,7 +100,8 @@ jQuery( function ( $ ) {
 				product_id: product_id,
 				quantity: quantity,
 				variation_id: var_id,
-				variation: item
+				variation: item,
+				data: itemData
 			};
 
 			// Trigger event.
